@@ -1,3 +1,7 @@
+## required
+
+- ssh key
+
 ## summary
 
 when `git push` to gitlab or github.  
@@ -17,6 +21,10 @@ and  `deploy.php` will help to deploy all of things.
   - Generate `your_project_name/log.txt`
 - sample_demo/
   - follow this sample_demo/readme.md will help to know more about it.
+
+## Notice
+
+- 須注意 git clone 的權限問題，deploy 的位置上，必須放入 ssh key
 
 ## How to use
 
