@@ -1,30 +1,41 @@
-## required
-
-- ssh key
-
 ## summary
 
-when `git push` to gitlab or github.  
+When `git push` to gitlab or github.  
 git GUI will call webhook and auto deploy current version to Specified space.
 
-and  `deploy.php` will help to deploy all of things.
+## Test ENV
+
+- Linux DiskStation 3.10.77 #7321 SMP Wed Mar 23 11:47:12 CST 2016 x86_64 GNU/Linux synology_cedarview_713+
+	- git 2.8
+	- apache 2.2
+	- php 5.6
+- mac osx 10.11.4
+	- git 2.6.4
+	- apache 2.2
+	- php 7.0
+
+## Notice : setting required
+
+- who use : `whoami` , may get apache or http
+	- use it by php bash_exec.
+- generate  ssh key : `sudo -u apache ssh-keygen -t rsa`
+- known_hosts : sudo -u apache ssh <ssh host>
+	- gitlab.com
+	- github.com
+
 
 ## file
 
-- generate.php
-  - generate 'TOKEN' and 'WEBHOOK LINK'.
-  - `generate.php?folder_name=your_project_name` : need fill it on gitlab webhook
+- generate.php : `generate.php?folder_name=your_project_name`
+  - generate 'Token' and 'Webhook link'.
+	  - Token : Take it set to config.php.
+	  - Webhook link : Put it to 'git GUI service'
 - config.php
-  - fill 'TOKEN' in suitable position.
-- deploy.php
-  - `git pull`
-  - Generate `your_project_name/log.txt`
+  - setting token and deploy path.
+- deploy.php : Will generate log and exec `git pull` to specified path.
+
 - sample_demo/
   - follow this sample_demo/readme.md will help to know more about it.
-
-## Notice
-
-- 須注意 git clone 的權限問題，deploy 的位置上，必須放入 ssh key
 
 ## How to use
 
