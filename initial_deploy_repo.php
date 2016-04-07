@@ -1,32 +1,38 @@
 <?
 /*
-initial_deploy_repo.php?repo_name=&repo_link=
-
-建立的路徑為此 folder 的父層
-
-This file need to fixed!!!!!!!!!!
+initial_deploy_repo.php?token=&repo_link=
 */
+include("config.php");
+
 $repo_link = $_GET['repo_link'];
-$repoN = $_GET['repo_name'];
-$parent_path = dirname(dirname(__FILE__));
+$config = getPath($_GET['token']);
+if ($config == '') {
+  echo "Thank you!!";
+  exit;
+}
 
-$repo_path = $parent_path.'/'.$repoN;
-echo $repoN."<br>";
-echo $repo_link."<br>";
-echo $parent_path."<br>";
-echo $repo_path."<br>";
 
-if (!file_exists($repo_path)) {
-  // echo "he";
-  // mkdir($repo_path,0777,true);
-  // shell_exec("cd $parent_path");
-  $cmd = "git clone $repo_link";
-  echo $cmd."<br>";
-  // $output = shell_exec("pwd");//shell_exec("cd $parent_path && git clone $repo_link");
-  // exec("git clone $repo_link", $output, $return_var);
-  $output = system('pwd', $return_var);
-  // var_dump($output)."<br>";
-  // echo $return_var;
-  // shell_exec("cd $repo_path && git init && git remote add origin ".$repo_link);
+$_repoN       	= $config['repoName'];
+$_repoParentDir = $config["repoUpDir"];
+$_repoDir 		= $config["repoDir"];
+
+echo "repo link : ".$repo_link."<br>";
+echo "repo name : ".$_repoN."<br>";
+echo "repo parent dir : ".$_repoParentDir."<br>";
+echo "repo dir : ".$_repoDir."<br>";
+echo "<hr>";
+// exit;
+
+if (!file_exists($_repoDir)) {
+  echo "Do : ";
+  echo "<br>";
+  echo "1. create repoDir <br> 2. git init <br> 3. git remote add origin $repo_link<br>";
+
+  `cd $_repoParentDir;pwd;mkdir $_repoN;ls`;
+  `cd $_repoDir; git init;git remote add origin $repo_link`;
+}
+else
+{
+	echo "Can't build the git repo";
 }
 ?>
