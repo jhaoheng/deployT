@@ -2,10 +2,7 @@
 // include("ip_access.php");
 
 /*
-設定前
-請先去該 repo 的位置，進行
-1. git init
-2. git remote add [origin] [branch]
+設定
 */
 
 
@@ -21,13 +18,16 @@ function getPath($token)
   $parent_path = dirname(dirname(__FILE__));//父路徑
   $current_path = dirname(__FILE__);
 
-  $dir;
+  $config;
   if ($token == 'MTQ1OTkzNTU5N3NhbXBsZTE0NTk5MzU1OTc') {
     $repoN = 'sample_deploy';
-    $dir[log] = $current_path.'/'.$repoN;
-    $dir[repo] = $parent_path.'/'.'sample_demo'.'/'.$repoN;
+    $config[repoName] = $repoN;
+    $config[logDir] = $current_path.'/'.$repoN;
+    $config[repoUpDir] = $current_path;
+    $config[repoDir] = $parent_path.'/'.'sample_demo'.'/'.$repoN;
+    $config[branch] = 'master';
   }
-  return $dir;
+  return $config;
 }
 
 
