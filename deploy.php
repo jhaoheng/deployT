@@ -1,20 +1,24 @@
 <?php
 
 /*
+ex:
+deploy.php?token=
+
 1. 收到 webhook 給予的 token
 2. 將 token 拿到後，去資料庫查找路徑
 */
 
 include("config.php");
 
-$dir = getPath($_GET['token']);
-if ($dir == '') {
+$config = getPath($_GET['token']);
+if ($config == '') {
   echo "Thank you!!";
   exit;
 }
 
-$_logDir = $dir['log'];
-$_repoDir = $dir['repo'];
+$_logDir = $config['logDir'];
+$_repoDir = $config['repoDir'];
+$_branch = $config['branch'];
 
 //檢查 deploy repo 是否設定完成
 if (!checkRepoFolder($_repoDir)) {
@@ -28,7 +32,11 @@ checkLog($_logDir);//確認 log 路徑
 //執行指令 or shell命令，並將return msg寫進日誌
 //git fetch -q --all
 //git pull
-$output = shell_exec("cd $_repoDir && git pull");
+echo "<br>";
+$cmd = "cd $_repoDir ; git pull origin $_branch";
+
+$output = shell_exec($cmd);
+// echo $output."<br>";
 w_log($_logDir,$output);
 
 
