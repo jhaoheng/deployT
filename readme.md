@@ -1,7 +1,12 @@
 ## summary
 
+### eng
 When `git push` to gitlab or github.  
 git GUI will call webhook and auto deploy current version to Specified space.
+
+### cht
+目的為，當使用 git push 到 gitlab or github 後，自動透過 webhook 將目的端的 repo，自動將 master branch 進行更新。
+方便當開發者要測試網站服務時的好幫手。
 
 ## Test ENV
 
@@ -14,7 +19,9 @@ git GUI will call webhook and auto deploy current version to Specified space.
 	- apache 2.2
 	- php 7.0
 
-## Notice : setting required
+## Notice
+
+### if use SSH to git pull / git fetch , required
 
 - who use : `whoami` , may get apache or http
 	- use it by php bash_exec.
@@ -23,6 +30,12 @@ git GUI will call webhook and auto deploy current version to Specified space.
 	- gitlab.com
 	- github.com
 
+### Go HTTPS 
+
+You should type below after `git init`
+```
+git remote add origin https://<user>:<password>@gitlab.com/<repo>.git
+```
 
 ## file
 
@@ -39,10 +52,20 @@ git GUI will call webhook and auto deploy current version to Specified space.
 
 ## How to use
 
-1. 產生 token / webhook link
-2. 建立 deploy 路徑上的 git
-3. 設定 token 於 git GUI config(gitlab)
-  - log path
-  - repo path
-4. 在應用軟體上，設定 webhook
-5. 完成
+### Eng
+0. First Notice!! **SSH** or **HTTPS**
+1. `generate.php` will create 'token' and 'webhook link'
+2. setting `config.php` with token.
+3. Initial the repo folder. You can use `initial_deploy_repo.php` or manual init it.
+	- `initial_deploy_repo.php?token=&repo_link=`
+4. Setting 'webhook link' to 'git gui service' (gitlab/github)
+5. Test the webhook
+
+### Cht
+0. 必須先注意用 **SSH** or **HTTPS** 進行 git 的動作行為
+1. generate.php 產生 token 與 webhook link
+2. 設定 config.php
+3. 初始化 repo folder.
+4. 設定 webhook 於 git GUI service (gitlab/github)
+5. 測試 webhook
+
